@@ -28,7 +28,11 @@ object LocationEntropy {
     })
     fileReader.close
 
-    // Calculate entropy for the first element - TEST
-    println(calculateEntropy(objCollection.head.poiID, objCollection.toList))
+    // Calculate entropy for the first few elements - TEST
+    val uniquePOIs = objCollection.map(_.poiID).distinct.sorted.reverse
+    val endRange = if (uniquePOIs.length>10) 10 else uniquePOIs.length
+    for (i <- 0 until endRange) {
+      println(s"For POI: ${uniquePOIs(i)} -> Location Entropy: ${calculateEntropy(uniquePOIs(i), objCollection.toList)}")
+    }
   }
 }
